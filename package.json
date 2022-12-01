@@ -1,0 +1,15 @@
+{
+  "name": "real-estate-backend",
+  "version": "1.0.0",
+  "description": "real estate api/backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Beyar Alhaji",
+  "license": "ISC",
+  "dependencies": {
+    "pg": "^8.8.0",
+    "pg-format": "^1.0.4"
+  }
+}
