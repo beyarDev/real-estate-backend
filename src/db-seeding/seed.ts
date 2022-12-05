@@ -1,15 +1,17 @@
 import db from './dbconnection';
 import format from 'pg-format';
-
+import {EstateToRentRow,CategoryRow,CountyRow,EstateToSellRow,UserRow,ImageRow} from '../db-seeding/data/tableInterfaces'
 interface data {
-   categories:[],
-   counties:[],
-   estatesToRent: [],
-   estatesToSell: [],
-   users: [] 
+   categories:CategoryRow[],
+   counties:CountyRow[],
+   estatesToRent: EstateToRentRow[],
+   estatesToSell: EstateToSellRow[],
+   users: UserRow[],
+   imagesToRent:ImageRow[],
+   imagesToSell:ImageRow[],
 }
 async function seed(data:data) {
-	const { categories, counties, estatesToRent, estatesToSell,users } = data;
+	const { categories, counties, estatesToRent, estatesToSell,users,imagesToRent,imagesToSell } = data;
 	await db.query(`DROP TABLE IF EXISTS estates_toRent;`);
 	await db.query(`DROP TABLE IF EXISTS estates_toSell;`);
 	await db.query(`DROP TABLE IF EXISTS users;`);
@@ -79,13 +81,13 @@ async function seed(data:data) {
   );`);
 
   const rentImagesTable = db.query(`
-  CREATE TABLE images (
+  CREATE TABLE images_toRent (
   id SERIAL PRIMARY KEY,
   image_link VARCHAR,
   estate_id REFERENCES estates_toRent(estate_id)
   )`)
   const sellImagesTable = db.query(`
-  CREATE TABLE images (
+  CREATE TABLE images_toSell (
   id SERIAL PRIMARY KEY,
   image_link VARCHAR,
   estate_id REFERENCES estates_toSell(estate_id)
@@ -119,9 +121,9 @@ async function seed(data:data) {
 	// const formattedReviewData = reviewData.map(convertTimestampToDate);
 
 	const insertEstatesToRentQueryStr = format(
-		"INSERT INTO estates_ToRent (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type,images) VALUES %L;",
+		"INSERT INTO estates_ToRent (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type) VALUES %L;",
 		estatesToRent.map(
-			({price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type,images
+			({price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type
 			}) => [
 				price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type
 			]
@@ -131,7 +133,7 @@ async function seed(data:data) {
 	await db.query(insertEstatesToRentQueryStr)
 	
 	const insertEstatesToSellQueryStr = format(
-		"INSERT INTO estates_ToSell (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date,images) VALUES %L;",
+		"INSERT INTO estates_ToSell (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date) VALUES %L;",
 		estatesToSell.map(
 			({price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date}) => [
 				price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date
@@ -139,4 +141,11 @@ async function seed(data:data) {
 		)
 	);
 	await db.query(insertEstatesToSellQueryStr)
+
+	const insertImagesToRentQueryStr = format("INSERT INTO images_toRent (image_link, estate_id) VALUES %L", imagesToRent.map((image_link,estate_id)=> [image_link,estate_id]))
+
+	const insertImagesToSellQueryStr = format("INSERT INTO images_toSell (image_link, estate_id) VALUES %L", imagesToSell.map((image_link,estate_id)=> [image_link,estate_id]))
+	
+	await db.query(insertImagesToRentQueryStr)
+	await db.query(insertImagesToSellQueryStr)
 };
