@@ -17,6 +17,8 @@ async function seed(data:data) {
 	await db.query(`DROP TABLE IF EXISTS users;`);
 	await db.query(`DROP TABLE IF EXISTS categories;`);
     await db.query(`DROP TABLE IF EXISTS counties;`);
+	await db.query(`DROP TABLE IF EXIST images_toSell`);
+	await db.query(`DROP TABLE IF EXIST images_toRent`);
 
 	const categoriesTablePromise = db.query(`
   CREATE TABLE categories (
@@ -147,5 +149,7 @@ async function seed(data:data) {
 	const insertImagesToSellQueryStr = format("INSERT INTO images_toSell (image_link, estate_id) VALUES %L", imagesToSell.map((image_link,estate_id)=> [image_link,estate_id]))
 	
 	await db.query(insertImagesToRentQueryStr)
-	await db.query(insertImagesToSellQueryStr)
+	return await db.query(insertImagesToSellQueryStr)
 };
+
+export default seed;

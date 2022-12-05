@@ -57,4 +57,4 @@ const estatesToSell:EstateToSellRow[] = [
     }
 ]
 
-module.exports = estatesToSell
+export = estatesToSell

@@ -24,4 +24,4 @@ const users:UserRow[] = [
   }
 ];
 
-module.exports = users;
+export = users;

@@ -44,4 +44,4 @@ const counties:CountyRow[] = [
     },
 ]
 
-module.exports = counties;
+export = counties;

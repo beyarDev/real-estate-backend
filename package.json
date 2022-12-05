@@ -4,7 +4,8 @@
   "description": "real estate api/backend",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "seed": "tsc && node dist/db-seeding/run-seed.js"
   },
   "author": "Beyar Alhaji",
   "license": "ISC",

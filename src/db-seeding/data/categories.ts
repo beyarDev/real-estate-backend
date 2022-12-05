@@ -17,4 +17,4 @@ const categories:CategoryRow[] = [
     description: "Agricultral land or estate lands",
   },
 ];
-module.exports = categories;
+export = categories;

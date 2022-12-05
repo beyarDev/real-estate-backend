@@ -48,4 +48,4 @@ const estatesToRent:EstateToRentRow[] = [
     }
 ]
 
-module.exports = estatesToRent
+export = estatesToRent
