@@ -1,4 +1,5 @@
-module.exports = [
+import { CountyRow } from "./tableInterfaces"
+const counties:CountyRow[] = [
     {
         county: "AlHasaka"
     },
@@ -42,3 +43,5 @@ module.exports = [
         county: "Dara"
     },
 ]
+
+module.exports = counties;

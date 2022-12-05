@@ -1,10 +1,11 @@
-module.exports = [
+import { EstateToRentRow } from "./tableInterfaces"
+
+const estatesToRent:EstateToRentRow[] = [
     {
         estate_type: "flat",
         county: "AlHasaka",
         owner: "Thor",
         owner_id: 123,
-        images: ["https://lid.zoocdn.com/u/1024/768/1b1e0b08a7cbd9f0955324f1e1f26d3e1cb3df57.jpg:p","https://lid.zoocdn.com/u/1024/768/d71baf1b084ab889aa64559cb82e48cb4ed4e347.jpg:p","https://lid.zoocdn.com/u/1024/768/89b329be4cdee04987f72e62db0ebe17297ef590.jpg:p"],
         bedrooms: 3,
         area_m2: 110,
         street: "Ibin Siena",
@@ -20,7 +21,6 @@ module.exports = [
         county: "Damascus",
         owner: "Thor",
         owner_id: 123,
-        images: ["https://lid.zoocdn.com/u/1024/768/1b1e0b08a7cbd9f0955324f1e1f26d3e1cb3df57.jpg:p","https://lid.zoocdn.com/u/1024/768/d71baf1b084ab889aa64559cb82e48cb4ed4e347.jpg:p","https://lid.zoocdn.com/u/1024/768/89b329be4cdee04987f72e62db0ebe17297ef590.jpg:p"],
         bedrooms: 2,
         area_m2: 90,
         street: "Ibin Siena",
@@ -36,7 +36,6 @@ module.exports = [
         county: "Raqa",
         owner: "Kang",
         owner_id: 789,
-        images: ["https://lid.zoocdn.com/u/1024/768/1b1e0b08a7cbd9f0955324f1e1f26d3e1cb3df57.jpg:p","https://lid.zoocdn.com/u/1024/768/d71baf1b084ab889aa64559cb82e48cb4ed4e347.jpg:p","https://lid.zoocdn.com/u/1024/768/89b329be4cdee04987f72e62db0ebe17297ef590.jpg:p"],
         bedrooms: 5,
         area_m2: 220,
         street: "Ibin Siena",
@@ -44,8 +43,9 @@ module.exports = [
         created_at: new Date(1673831022445),
         modified_at: new Date(1669831022445),
         price: 300,
-        descreption: "",
         description: "A nice flat with balkoni",
         neighbourhood: "AlAziziye"
     }
 ]
+
+module.exports = estatesToRent

@@ -1,10 +1,11 @@
-module.exports = [
+import { EstateToSellRow } from "./tableInterfaces"
+
+const estatesToSell:EstateToSellRow[] = [
     {
         estate_type: "flat",
         county: "AlHasaka",
         owner: "Thor",
         owner_id: 123,
-        images: ["https://lid.zoocdn.com/u/1024/768/1b1e0b08a7cbd9f0955324f1e1f26d3e1cb3df57.jpg:p","https://lid.zoocdn.com/u/1024/768/d71baf1b084ab889aa64559cb82e48cb4ed4e347.jpg:p","https://lid.zoocdn.com/u/1024/768/89b329be4cdee04987f72e62db0ebe17297ef590.jpg:p"],
         bedrooms: 3,
         area_m2: 110,
         street: "Ibin Siena",
@@ -23,7 +24,6 @@ module.exports = [
         county: "Damascus",
         owner: "Thor",
         owner_id: 123,
-        images: ["https://lid.zoocdn.com/u/1024/768/1b1e0b08a7cbd9f0955324f1e1f26d3e1cb3df57.jpg:p","https://lid.zoocdn.com/u/1024/768/d71baf1b084ab889aa64559cb82e48cb4ed4e347.jpg:p","https://lid.zoocdn.com/u/1024/768/89b329be4cdee04987f72e62db0ebe17297ef590.jpg:p"],
         bedrooms: 2,
         area_m2: 90,
         street: "29 Ayar",
@@ -42,7 +42,6 @@ module.exports = [
         county: "Raqa",
         owner: "Galactus",
         owner_id: 456,
-        images: ["https://lid.zoocdn.com/u/1024/768/1b1e0b08a7cbd9f0955324f1e1f26d3e1cb3df57.jpg:p","https://lid.zoocdn.com/u/1024/768/d71baf1b084ab889aa64559cb82e48cb4ed4e347.jpg:p","https://lid.zoocdn.com/u/1024/768/89b329be4cdee04987f72e62db0ebe17297ef590.jpg:p"],
         bedrooms: 5,
         area_m2: 240,
         street: "Ibin Siena",
@@ -57,3 +56,5 @@ module.exports = [
         neighbourhood: "AlSina3a"
     }
 ]
+
+module.exports = estatesToSell

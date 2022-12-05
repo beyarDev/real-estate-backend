@@ -1,4 +1,5 @@
-module.exports = [
+import { CategoryRow } from "./tableInterfaces";
+const categories:CategoryRow[] = [
   {
     estate_type: "flat",
     description: "Usually a building with flats on top of each others",
@@ -16,3 +17,4 @@ module.exports = [
     description: "Agricultral land or estate lands",
   },
 ];
+module.exports = categories;
