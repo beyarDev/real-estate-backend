@@ -4,7 +4,7 @@ const estatesToRent: EstateToRentRow[] = [
   {
     estate_type: "flat",
     county: "AlHasaka",
-    owner_id: 123,
+    owner_id: "123",
     bedrooms: 3,
     area_m2: 110,
     street: "Ibin Siena",
@@ -18,7 +18,7 @@ const estatesToRent: EstateToRentRow[] = [
   {
     estate_type: "flat",
     county: "Damascus",
-    owner_id: 123,
+    owner_id: "123",
     bedrooms: 2,
     area_m2: 90,
     street: "Ibin Siena",
@@ -32,7 +32,7 @@ const estatesToRent: EstateToRentRow[] = [
   {
     estate_type: "house",
     county: "Raqa",
-    owner_id: 789,
+    owner_id: "789",
     bedrooms: 5,
     area_m2: 220,
     street: "Ibin Siena",

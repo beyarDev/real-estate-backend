@@ -77,7 +77,7 @@ function seed(data) {
 	area_m2 INT NOT NULL,
 	sold BOOLEAN DEFAULT false,
 	sold_price INT DEFAULT 0,
-	sold_date TIMESTAMP
+	sold_date TIMESTAMP NULL
   );`);
         const rentImagesTable = dbconnection_1.default.query(`
   CREATE TABLE images_torent (
@@ -104,7 +104,6 @@ function seed(data) {
             avatar_url,
         ]));
         yield dbconnection_1.default.query(insertUsersQueryStr);
-        // 	// const formattedReviewData = reviewData.map(convertTimestampToDate);
         const insertEstatesToRentQueryStr = (0, pg_format_1.default)("INSERT INTO estates_torent (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type) VALUES %L;", estatesToRent.map(({ price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type }) => [
             price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type
         ]));
@@ -113,10 +112,10 @@ function seed(data) {
             price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date
         ]));
         yield dbconnection_1.default.query(insertEstatesToSellQueryStr);
-        // 	const insertImagesToRentQueryStr = format("INSERT INTO images_torent (image_link, estate_id) VALUES %L", imagesToRent.map((image_link,estate_id)=> [image_link,estate_id]))
-        // 	const insertImagesToSellQueryStr = format("INSERT INTO images_tosell (image_link, estate_id) VALUES %L", imagesToSell.map((image_link,estate_id)=> [image_link,estate_id]))
-        // 	await db.query(insertImagesToRentQueryStr)
-        // 	return await db.query(insertImagesToSellQueryStr)
+        const insertImagesToRentQueryStr = (0, pg_format_1.default)("INSERT INTO images_torent (image_link, estate_id) VALUES %L", imagesToRent.map(({ image_link, estate_id }) => [image_link, estate_id]));
+        const insertImagesToSellQueryStr = (0, pg_format_1.default)("INSERT INTO images_tosell (image_link, estate_id) VALUES %L", imagesToSell.map(({ image_link, estate_id }) => [image_link, estate_id]));
+        yield dbconnection_1.default.query(insertImagesToRentQueryStr);
+        return yield dbconnection_1.default.query(insertImagesToSellQueryStr);
     });
 }
 ;

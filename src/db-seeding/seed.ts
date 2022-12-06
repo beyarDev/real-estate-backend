@@ -65,7 +65,7 @@ async function seed(data:data) {
     estate_id SERIAL PRIMARY KEY,
     bedrooms INT NOT NULL,
     estate_type VARCHAR NOT NULL REFERENCES categories(estate_type),
-	owner_id INT NOT NULL REFERENCES users(user_id),
+	owner_id VARCHAR NOT NULL REFERENCES users(user_id),
     description VARCHAR,
     street VARCHAR NOT NULL,
 	neighbourhood VARCHAR NOT NULL,
@@ -77,7 +77,7 @@ async function seed(data:data) {
 	area_m2 INT NOT NULL,
 	sold BOOLEAN DEFAULT false,
 	sold_price INT DEFAULT 0,
-	sold_date TIMESTAMP
+	sold_date TIMESTAMP NULL
   );`);
 
   const rentImagesTable = db.query(`
@@ -118,8 +118,6 @@ async function seed(data:data) {
 	);
 	await db.query(insertUsersQueryStr)
 
-// 	// const formattedReviewData = reviewData.map(convertTimestampToDate);
-
 	const insertEstatesToRentQueryStr = format(
 		"INSERT INTO estates_torent (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type) VALUES %L;",
 		estatesToRent.map(
@@ -142,12 +140,12 @@ async function seed(data:data) {
 	);
 	await db.query(insertEstatesToSellQueryStr)
 
-// 	const insertImagesToRentQueryStr = format("INSERT INTO images_torent (image_link, estate_id) VALUES %L", imagesToRent.map((image_link,estate_id)=> [image_link,estate_id]))
+	const insertImagesToRentQueryStr = format("INSERT INTO images_torent (image_link, estate_id) VALUES %L", imagesToRent.map(({image_link,estate_id})=> [image_link,estate_id]))
 
-// 	const insertImagesToSellQueryStr = format("INSERT INTO images_tosell (image_link, estate_id) VALUES %L", imagesToSell.map((image_link,estate_id)=> [image_link,estate_id]))
+	const insertImagesToSellQueryStr = format("INSERT INTO images_tosell (image_link, estate_id) VALUES %L", imagesToSell.map(({image_link,estate_id})=> [image_link,estate_id]))
 	
-// 	await db.query(insertImagesToRentQueryStr)
-// 	return await db.query(insertImagesToSellQueryStr)
+	await db.query(insertImagesToRentQueryStr)
+	return await db.query(insertImagesToSellQueryStr)
 };
 
 export default seed;

@@ -5,7 +5,7 @@ export interface ImageRow {
 export interface EstateToRentRow {
         estate_type: string,
         county: string,
-        owner_id: number,
+        owner_id: string,
         bedrooms: number,
         area_m2: number,
         street: string,
@@ -20,7 +20,7 @@ export interface EstateToRentRow {
 export interface EstateToSellRow {
         estate_type:string,
         county:string,
-        owner_id: number,
+        owner_id: string,
         bedrooms: number,
         area_m2: number,
         street: string,
@@ -30,7 +30,7 @@ export interface EstateToSellRow {
         price: number,
         sold: boolean,
         sold_price: number,
-        sold_date:string,
+        sold_date: Date | null,
         description: string,
         neighbourhood: string
 }
