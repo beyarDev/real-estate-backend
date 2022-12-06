@@ -17,6 +17,6 @@ const config =
         },
       }
     : {};
-
+    
 
 export default new Pool(config)
