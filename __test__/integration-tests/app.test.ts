@@ -31,10 +31,33 @@ describe("GET /api/estates-to-sell", () => {
         price: expect.any(Number),
         sold: expect.any(Boolean),
         sold_price: expect.any(Number),
-        sold_date: expect.anything(),
         description: expect.any(String),
         neighbourhood: expect.any(String),
       }))
     });
   });
 });
+
+describe("GET /api/estates-to-rent", ()=>{
+  test("should return all to rent estates", async ()=>{
+    const {body:{estatesToRent}} = await request(app).get("/api/estates-to-rent").expect(200)
+    estatesToRent.forEach((estate:{})=>{
+      expect(estate).toEqual({
+        "estate_id": expect.any(Number),
+        "bedrooms": expect.any(Number),
+        "estate_type": expect.any(String),
+        "owner_id": expect.any(String),
+        "description": expect.any(String),
+        "street": expect.any(String),
+        "neighbourhood": expect.any(String),
+        "city": expect.any(String),
+        "county": expect.any(String),
+        "created_at": expect.any(String),
+        "price": expect.any(Number),
+        "modified_at": expect.any(String),
+        "area_m2": expect.any(Number)
+      })
+    })
+    
+  })
+})
