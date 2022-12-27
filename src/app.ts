@@ -1,12 +1,22 @@
-import express, {Application, Express} from 'express'
-import {getSellEstates} from './controllers/estatesToSellController'
-import {getRentEstates} from "./controllers/estatesToRentController"
+import express, { Application, Express } from "express";
+import { getSellEstates,postEstateToSell} from "./controllers/estatesToSellController";
+import {
+  getRentEstates,
+  getRentEstateById,
+} from "./controllers/estatesToRentController";
+import { notFound, sqlErrors } from "./controllers/errorhanlder";
+const app: Application = express();
 
-const app:Application = express()
+app.use(express.json());
+//get routes
+app.get("/api/estates-to-sell", getSellEstates);
+app.get("/api/estates-to-rent", getRentEstates);
+app.get("/api/estate-to-rent/:estateId", getRentEstateById);
 
-app.use(express.json())
+//post routes
+app.post("/api/estate-to-sell", postEstateToSell)
 
-app.get("/api/estates-to-sell", getSellEstates)
-app.get("/api/estates-to-rent", getRentEstates)
+app.use(sqlErrors);
+app.use(notFound);
 
 export default app;
