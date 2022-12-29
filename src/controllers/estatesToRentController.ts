@@ -3,6 +3,7 @@ import {
   fetchRentEstates,
   fetchRentEstateById,
 } from "../models/estatesToRentModel";
+
 async function getRentEstates(req: Request, res: Response, next: NextFunction) {
   try {
     const estatesToRent = await fetchRentEstates();
@@ -20,7 +21,7 @@ async function getRentEstateById(
   try {
     const { estateId } = req.params;
     const estateToRent = await fetchRentEstateById(estateId);
-    res.status(200).send(estateToRent);
+    res.status(200).send({ estateToRent });
   } catch (err) {
     next(err);
   }

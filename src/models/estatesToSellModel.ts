@@ -1,8 +1,24 @@
 import db from "../db-seeding/dbconnection";
 import { EstateToSellRow } from "../db-seeding/data/tableInterfaces";
+
+// db queries
 async function fetchSellEstates() {
   const { rows } = await db.query("SELECT * FROM estates_tosell");
   return rows;
+}
+
+async function fetchSellEstateById(estateId: string) {
+  const { rows, rowCount } = await db.query(
+    `SELECT * FROM estates_tosell WHERE estate_id = $1`,
+    [estateId]
+  );
+  if (rowCount == 0) {
+    return Promise.reject({
+      message: `${estateId} not found`,
+      status: 404,
+    });
+  }
+  return rows[0];
 }
 
 async function addEstateTOSell({
@@ -46,4 +62,4 @@ async function addEstateTOSell({
   return rows[0];
 }
 
-export { fetchSellEstates, addEstateTOSell };
+export { fetchSellEstates, addEstateTOSell, fetchSellEstateById };

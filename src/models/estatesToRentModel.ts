@@ -6,10 +6,16 @@ async function fetchRentEstates() {
 }
 
 async function fetchRentEstateById(estateId: string) {
-  const { rows } = await db.query(
+  const { rows, rowCount } = await db.query(
     `SELECT * FROM estates_torent WHERE estate_id = $1`,
     [estateId]
   );
+  if (rowCount == 0) {
+    return Promise.reject({
+      message: `${estateId} not found`,
+      status: 404,
+    });
+  }
   return rows[0];
 }
 

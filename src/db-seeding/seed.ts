@@ -20,7 +20,6 @@ interface data {
 }
 
 async function seed(data: data) {
-  console.log("running seed ...");
   const {
     categories,
     counties,

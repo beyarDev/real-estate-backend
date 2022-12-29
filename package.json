@@ -4,7 +4,7 @@
   "description": "real estate api/backend",
   "main": "app.js",
   "scripts": {
-    "start":"node dist/listen.js",
+    "start": "node dist/listen.js",
     "build": "tsc",
     "test": "jest",
     "seed": "tsc && node dist/db-seeding/run-seed.js",
@@ -14,6 +14,7 @@
   "license": "ISC",
   "dependencies": {
     "@types/jest": "^29.2.4",
+    "@types/pg": "^8.6.6",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "pg": "^8.8.0",
@@ -23,7 +24,6 @@
   "devDependencies": {
     "@types/express": "^4.17.14",
     "@types/node": "^18.11.10",
-    "@types/pg": "^8.6.5",
     "@types/pg-format": "^1.0.2",
     "@types/supertest": "^2.0.12",
     "jest": "^29.3.1",

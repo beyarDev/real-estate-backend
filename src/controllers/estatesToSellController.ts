@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import {
   fetchSellEstates,
   addEstateTOSell,
+  fetchSellEstateById,
 } from "../models/estatesToSellModel";
 
 async function getSellEstates(req: Request, res: Response, next: NextFunction) {
@@ -10,6 +11,20 @@ async function getSellEstates(req: Request, res: Response, next: NextFunction) {
     res.status(200).send({ estatesToSell });
   } catch (err) {
     next(err);
+  }
+}
+
+async function getSellEstateById(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const { estateId } = req.params;
+    const sellEstate = await fetchSellEstateById(estateId);
+    res.status(200).send({ sellEstate });
+  } catch (error) {
+    next(error);
   }
 }
 
@@ -27,4 +42,4 @@ async function postEstateToSell(
   }
 }
 
-export { getSellEstates, postEstateToSell };
+export { getSellEstates, postEstateToSell, getSellEstateById };

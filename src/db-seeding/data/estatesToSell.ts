@@ -14,7 +14,7 @@ const estatesToSell: EstateToSellRow[] = [
     price: 29000,
     sold: true,
     sold_price: 28000,
-    sold_date: new Date(Date.now()),
+    sold_date: new Date(1689831022445),
     description: "A nice flat with Balkoni",
     neighbourhood: "AlSina3a",
   },

@@ -17,7 +17,7 @@ const config =
       }
     : {};
 
-if(!process.env.PGDATABASE || !process.env.DATABASE_URL){
-  throw new Error("no database config found")
-}
+// if(!process.env.PGDATABASE || !process.env.DATABASE_URL){
+//   throw new Error("no database config found")
+// }
 export default new Pool(config);
