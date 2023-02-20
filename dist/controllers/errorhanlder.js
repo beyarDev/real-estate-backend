@@ -9,6 +9,9 @@ function sqlErrors(error, req, res, next) {
     else if (error.code == "23503") {
         res.status(400).send({ message: error.detail });
     }
+    else if (error.status) {
+        res.status(error.status).send(error.message);
+    }
 }
 exports.sqlErrors = sqlErrors;
 function notFound(req, res) {

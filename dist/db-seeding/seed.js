@@ -16,11 +16,11 @@ const dbconnection_1 = __importDefault(require("./dbconnection"));
 const pg_format_1 = __importDefault(require("pg-format"));
 function seed(data) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { categories, counties, estatesToRent, estatesToSell, users, imagesToRent, imagesToSell } = data;
+        const { categories, counties, estatesToRent, estatesToSell, users, imagesToRent, imagesToSell, } = data;
         yield dbconnection_1.default.query(`DROP TABLE IF EXISTS images_tosell`);
         yield dbconnection_1.default.query(`DROP TABLE IF EXISTS images_torent`);
-        yield dbconnection_1.default.query(`DROP TABLE IF EXISTS estates_torent;`);
-        yield dbconnection_1.default.query(`DROP TABLE IF EXISTS estates_tosell;`);
+        yield dbconnection_1.default.query(`DROP TABLE IF EXISTS estates_rentals;`);
+        yield dbconnection_1.default.query(`DROP TABLE IF EXISTS estates_sales;`);
         yield dbconnection_1.default.query(`DROP TABLE IF EXISTS categories;`);
         yield dbconnection_1.default.query(`DROP TABLE IF EXISTS counties;`);
         yield dbconnection_1.default.query(`DROP TABLE IF EXISTS users;`);
@@ -43,9 +43,13 @@ function seed(data) {
 	id SERIAL,
 	county VARCHAR NOT NULL PRIMARY KEY
 	)`);
-        yield Promise.all([categoriesTablePromise, usersTablePromise, countiesTablePromise]);
+        yield Promise.all([
+            categoriesTablePromise,
+            usersTablePromise,
+            countiesTablePromise,
+        ]);
         yield dbconnection_1.default.query(`
-  CREATE TABLE estates_torent (
+  CREATE TABLE estates_rentals (
     estate_id SERIAL PRIMARY KEY,
     bedrooms INT NOT NULL,
     estate_type VARCHAR NOT NULL REFERENCES categories(estate_type),
@@ -61,7 +65,7 @@ function seed(data) {
 	area_m2 INT NOT NULL
   );`);
         yield dbconnection_1.default.query(`
-  CREATE TABLE estates_tosell (
+  CREATE TABLE estates_sales (
     estate_id SERIAL PRIMARY KEY,
     bedrooms INT NOT NULL,
     estate_type VARCHAR NOT NULL REFERENCES categories(estate_type),
@@ -83,13 +87,13 @@ function seed(data) {
   CREATE TABLE images_torent (
   id SERIAL PRIMARY KEY,
   image_link VARCHAR,
-  estate_id INT REFERENCES estates_torent(estate_id)
+  estate_id INT REFERENCES estates_rentals(estate_id)
   )`);
         const sellImagesTable = dbconnection_1.default.query(`
   CREATE TABLE images_tosell (
   id SERIAL PRIMARY KEY,
   image_link VARCHAR,
-  estate_id INT REFERENCES estates_tosell(estate_id)
+  estate_id INT REFERENCES estates_sales(estate_id)
   )`);
         yield rentImagesTable;
         yield sellImagesTable;
@@ -104,12 +108,37 @@ function seed(data) {
             avatar_url,
         ]));
         yield dbconnection_1.default.query(insertUsersQueryStr);
-        const insertEstatesToRentQueryStr = (0, pg_format_1.default)("INSERT INTO estates_torent (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type) VALUES %L;", estatesToRent.map(({ price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type }) => [
-            price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type
+        const insertEstatesToRentQueryStr = (0, pg_format_1.default)("INSERT INTO estates_rentals (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type) VALUES %L;", estatesToRent.map(({ price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type, }) => [
+            price,
+            description,
+            area_m2,
+            bedrooms,
+            street,
+            city,
+            neighbourhood,
+            county,
+            owner_id,
+            created_at,
+            modified_at,
+            estate_type,
         ]));
         yield dbconnection_1.default.query(insertEstatesToRentQueryStr);
-        const insertEstatesToSellQueryStr = (0, pg_format_1.default)("INSERT INTO estates_tosell (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date) VALUES %L;", estatesToSell.map(({ price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date }) => [
-            price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date
+        const insertEstatesToSellQueryStr = (0, pg_format_1.default)("INSERT INTO estates_sales (price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date) VALUES %L;", estatesToSell.map(({ price, description, area_m2, bedrooms, street, city, neighbourhood, county, owner_id, created_at, modified_at, estate_type, sold, sold_price, sold_date, }) => [
+            price,
+            description,
+            area_m2,
+            bedrooms,
+            street,
+            city,
+            neighbourhood,
+            county,
+            owner_id,
+            created_at,
+            modified_at,
+            estate_type,
+            sold,
+            sold_price,
+            sold_date,
         ]));
         yield dbconnection_1.default.query(insertEstatesToSellQueryStr);
         const insertImagesToRentQueryStr = (0, pg_format_1.default)("INSERT INTO images_torent (image_link, estate_id) VALUES %L", imagesToRent.map(({ image_link, estate_id }) => [image_link, estate_id]));
@@ -118,5 +147,4 @@ function seed(data) {
         return yield dbconnection_1.default.query(insertImagesToSellQueryStr);
     });
 }
-;
 exports.default = seed;

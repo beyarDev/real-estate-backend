@@ -15,9 +15,9 @@ afterAll(() => {
 describe("GET /api/sales/estates", () => {
   test("should return all to sell estates", async () => {
     const {
-      body: { estatesToSell },
+      body: { estates },
     } = await request(app).get("/api/sales/estates").expect(200);
-    estatesToSell.forEach((estate: {}) => {
+    estates.forEach((estate: {}) => {
       expect(estate).toEqual(
         expect.objectContaining({
           estate_id: expect.any(Number),
@@ -35,6 +35,7 @@ describe("GET /api/sales/estates", () => {
           sold_price: expect.any(Number),
           description: expect.any(String),
           neighbourhood: expect.any(String),
+          image_link: expect.any(String),
         })
       );
     });
@@ -43,9 +44,9 @@ describe("GET /api/sales/estates", () => {
 describe("GET /api/sales/estates/:estateId", () => {
   test("should return the estate with the specific ID ", async () => {
     const {
-      body: { sellEstate },
+      body: { estate },
     } = await request(app).get("/api/sales/estates/1").expect(200);
-    expect(sellEstate).toEqual({
+    expect(estate).toEqual({
       estate_id: 1,
       bedrooms: 3,
       estate_type: "flat",
@@ -62,6 +63,10 @@ describe("GET /api/sales/estates/:estateId", () => {
       sold: true,
       sold_price: 28000,
       sold_date: "2023-07-20T04:30:22.445Z",
+      images: [
+        "https://lid.zoocdn.com/u/1024/768/d71baf1b084ab889aa64559cb82e48cb4ed4e347.jpg:p",
+        "https://www.jamesedition.com/stories/wp-content/uploads/2022/03/mansions_main_fin.jpg",
+      ],
     });
   });
 });
@@ -112,7 +117,8 @@ describe("GET /api/rentals/estates/:estateId", () => {
     });
   });
 });
-
+describe("POST /api/sales/estates", () => {});
+describe("POST /api/rentals/estates", () => {});
 describe("GET /unavailable path", () => {
   test("should return route not found object", async () => {
     const {

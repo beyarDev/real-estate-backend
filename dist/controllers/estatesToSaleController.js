@@ -9,38 +9,38 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.postEstateToRent = exports.getRentEstateById = exports.getRentEstates = void 0;
-const estatesToRentModel_1 = require("../models/estatesToRentModel");
-function getRentEstates(req, res, next) {
+exports.getSaleEstateById = exports.postEstateToSale = exports.getSaleEstates = void 0;
+const estatesToSaleModel_1 = require("../models/estatesToSaleModel");
+function getSaleEstates(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            const estatesToRent = yield (0, estatesToRentModel_1.fetchRentEstates)();
-            res.status(200).send({ estatesToRent });
+            const estatesToSale = yield (0, estatesToSaleModel_1.fetchSaleEstates)();
+            res.status(200).send({ estatesToSale });
         }
         catch (err) {
             next(err);
         }
     });
 }
-exports.getRentEstates = getRentEstates;
-function getRentEstateById(req, res, next) {
+exports.getSaleEstates = getSaleEstates;
+function getSaleEstateById(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const { estateId } = req.params;
-            const estateToRent = yield (0, estatesToRentModel_1.fetchRentEstateById)(estateId);
-            res.status(200).send({ estateToRent });
+            const estateToSale = yield (0, estatesToSaleModel_1.fetchSaleEstateById)(estateId);
+            res.status(200).send({ estateToSale });
         }
-        catch (err) {
-            next(err);
+        catch (error) {
+            next(error);
         }
     });
 }
-exports.getRentEstateById = getRentEstateById;
-function postEstateToRent(req, res, next) {
+exports.getSaleEstateById = getSaleEstateById;
+function postEstateToSale(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             const estateToAdd = req.body;
-            const addedEstate = yield (0, estatesToRentModel_1.addEstateTORent)(estateToAdd);
+            const addedEstate = yield (0, estatesToSaleModel_1.addEstateTOSale)(estateToAdd);
             res.status(201).send({ estate: addedEstate });
         }
         catch (error) {
@@ -48,4 +48,4 @@ function postEstateToRent(req, res, next) {
         }
     });
 }
-exports.postEstateToRent = postEstateToRent;
+exports.postEstateToSale = postEstateToSale;

@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import {
   fetchRentEstates,
   fetchRentEstateById,
+  addEstateTORent,
 } from "../models/estatesToRentModel";
 
 async function getRentEstates(req: Request, res: Response, next: NextFunction) {
@@ -27,4 +28,18 @@ async function getRentEstateById(
   }
 }
 
-export { getRentEstates, getRentEstateById };
+async function postEstateToRent(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    const estateToAdd = req.body;
+    const addedEstate = await addEstateTORent(estateToAdd);
+    res.status(201).send({ estate: addedEstate });
+  } catch (error) {
+    next(error);
+  }
+}
+
+export { getRentEstates, getRentEstateById, postEstateToRent };

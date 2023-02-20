@@ -10,5 +10,13 @@ const estatesToSell_1 = __importDefault(require("./estatesToSell"));
 const imagesToSell_1 = __importDefault(require("./imagesToSell"));
 const imagesToRent_1 = __importDefault(require("./imagesToRent"));
 const users_1 = __importDefault(require("./users"));
-const data = { categories: categories_1.default, counties: counties_1.default, estatesToRent: estatesToRent_1.default, estatesToSell: estatesToSell_1.default, users: users_1.default, imagesToRent: imagesToRent_1.default, imagesToSell: imagesToSell_1.default };
+const data = {
+    categories: categories_1.default,
+    counties: counties_1.default,
+    estatesToRent: estatesToRent_1.default,
+    estatesToSell: estatesToSell_1.default,
+    users: users_1.default,
+    imagesToRent: imagesToRent_1.default,
+    imagesToSell: imagesToSell_1.default,
+};
 exports.default = data;
